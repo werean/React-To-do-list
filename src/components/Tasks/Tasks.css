@@ -1,0 +1,37 @@
+.tasks {
+  margin-top: 20px;
+  list-style: none;
+}
+.tasks li {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 600ms;
+  border-radius: 5px;
+}
+.tasks li:hover {
+  background-color: rgba(0, 0, 0, 0.137);
+}
+
+.tasks li .edit {
+  margin-right: 15px;
+  color: blue;
+}
+.tasks li .delete {
+  margin-right: 15px;
+  color: crimson;
+}
+.tasks li:hover .edit,
+.tasks li:hover .delete {
+  color: rgb(0, 0, 0);
+}
+.tasks li .edit:hover,
+.tasks li .delete:hover {
+  color: rgba(255, 255, 255, 0.795);
+}
+.tasks li .edit,
+.tasks li .delete {
+  cursor: pointer;
+  transition: all 600ms;
+}

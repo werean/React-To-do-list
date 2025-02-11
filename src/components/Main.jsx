@@ -1,8 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Component } from "react";
 import "../CSS/Main.css";
-import { FaPlus } from "react-icons/fa";
-import { FaEdit, FaWindowClose } from "react-icons/fa";
+import Form from "./Form";
+import Tasks from "./Tasks";
 
 export default class Main extends Component {
   state = {
@@ -10,6 +10,20 @@ export default class Main extends Component {
     tasks: [],
     index: -1,
   };
+
+  componentDidMount() {
+    const tasks = JSON.parse(localStorage.getItem("tasks")); //aqui estou pegando o item tasks no local storage e armazenando na variavel tasks
+    if (!tasks) return; //se não tiver nada em tasks, ele não faz nada
+    this.setState({ tasks }); // se tiver, sele popula o estado do array com as tasks que ele encontrou no local storage
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //prevProps propriedades anteriores e prevState estado anterior
+    const { tasks } = this.state;
+    if (tasks === prevState.tasks) return; //aqui estou verificando se o array já foi populado, se não foi, não faz nada
+    localStorage.setItem("tasks", JSON.stringify(tasks)); // Se ele tiver sido alterado, eu crio/atualizo um item no localStorage com o nome de "tasks" e armazeno um JSON com o array de tasks.
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     let { newTask } = this.state;
@@ -56,31 +70,16 @@ export default class Main extends Component {
     return (
       <div className="main">
         <h1>Lista de tarefas</h1>
-        <h1>{newTask}</h1>
-        <form onSubmit={this.handleSubmit} action="#" className="form">
-          <input onChange={this.handleChange} type="text" value={newTask} />
-          <button type="submit">
-            <FaPlus />
-          </button>
-        </form>
-        <ul className="tasks">
-          {tasks.map((task, index) => (
-            <li key={index}>
-              {task}
-
-              <span className="buttons">
-                <FaEdit
-                  onClick={(e) => this.handleEdit(e, index)} // aqui estou mandando o evento e o index para a função handleEdit, ambos vem do map
-                  className="edit"
-                />
-                <FaWindowClose
-                  onClick={(e) => this.handleDelete(e, index)}
-                  className="delete"
-                />
-              </span>
-            </li> // No react a prop key é usada para ajudar o React a identificar quais itens em uma lista foram alterados. é importante para otimizar a re-renderização e garantir que a interface seja atualizada corretamente
-          ))}
-        </ul>
+        <Form
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          newTask={newTask}
+        />
+        <Tasks
+          tasks={tasks}
+          handleDelete={this.handleDelete}
+          handleEdit={this.handleEdit}
+        />
       </div>
     );
   }
