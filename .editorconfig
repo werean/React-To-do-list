@@ -1,0 +1,14 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+
+root = true                       # Define que este é o arquivo .editorconfig raiz para o projeto
+
+[*]                               # Aplica as configurações abaixo a todos os arquivos
+
+indent_style = space              # Define o estilo de indentação como espaços
+indent_size = 2                   # Define o tamanho da indentação como 2 espaços
+end_of_line = lf                  # Define o caractere de fim de linha como LF (Line Feed)
+charset = utf-8                   # Define a codificação de caracteres como UTF-8
+trim_trailing_whitespace = true   # Remove espaços em branco no final das linhas
+insert_final_newline = true      # Não insere uma nova linha no final dos arquivos
